@@ -1,0 +1,394 @@
+Ext.application({
+	name: 'Learn Extjs 5-II',
+
+	// create a reference in Ext.application so we can access it from multiple functions
+	// splashscreen: {},
+
+	// init: function() {
+	// 	// start the mask on the body and get a reference to the mask
+	// 	// splashscreen = Ext.getBody().mask('Loading AlRadio, please stand by ...', 'splashscreen');
+
+	// 	// Start the mask on the body and get a reference to the mask
+	// 	splashscreen = Ext.getBody().mask('Loading application', 'splashscreen');
+	// 	// Add a new class to this mask as we want it to look different from the default.
+	// 	splashscreen.addCls('splashscreen');
+
+	// 	// Insert a new div before the loading icon where we can place our logo.
+	// 	Ext.DomHelper.insertFirst(Ext.query('.x-mask-msg')[0], {
+	// 		cls: 'x-splash-icon'
+	// 	});
+	// },
+
+	launch: function() {
+		Ext.tip.QuickTipManager.init();
+		// var task = new Ext.util.DelayedTask(function() {
+		// 	// fade out the body mask
+		// 	splashscreen.fadeOut({
+		// 		duration: 500,
+		// 		remove: true
+		// 	});
+
+		// 	// fade out the message
+		// 	splashscreen.next().fadeOut({
+		// 		duration: 500,
+		// 		remove: true
+		// 	});
+		// });
+
+		// task.delay(1000);
+
+		// Ext.Msg.alert('Extjs Playground', 'Welcome to the Extjs Playground!');
+
+		var yesnostore = Ext.create('Ext.data.Store', {
+			fields: ['d', 'v'],
+			data: [
+				{ 'd': 'Yes', 'v': 1},
+				{ 'd': 'No', 'v': 2}
+			]
+		});
+
+		var studentDetail = {
+			xtype: 'fieldset',
+			// title: 'Name',
+			flex: 1,
+			border: false,
+			labelWidth: 60,
+			defaultType: 'textfield',
+			defaults: {
+				// anchor: '-10',
+				allowBlank: false,
+				width: '100%'
+			},
+			items: [{
+				xtype: 'combobox',
+				editable: false,
+				fieldLabel: 'Citizen:',
+				width: 180,
+				name: 'STU_NATIONALITY',
+				store: yesnostore,
+				displayField: 'd',
+				valueField: 'v',
+				queryModel: 'local',
+				emptyText: 'Select'
+			}, {
+				fieldLabel: 'Name',
+				name: 'STU_NAME'
+			}, {
+				xtype: 'fieldcontainer',
+				layout: 'column',
+				fieldLabel: 'Identification Type/No',
+				items: [
+					{
+						xtype: 'textfield',
+						width: 110
+					}, {
+						xtype: 'textfield',
+						width: 200
+					}
+				]
+			}, {
+				fieldLabel: 'Last',
+				name: 'lastName'
+			}]
+		};
+
+		var photo = {
+			width: 110,
+			labelWidth: 30,
+			// title: 'Address Information',
+			defaults: {
+				layout: 'column',
+				anchor: '100%'
+			},
+			items: [{
+				xtype: 'box',
+					autoEl: { tag: 'div',
+					html: '<img id="mypic" src="http://lorempixel.com/100/130/people"class="img-contact" width="100" height="130"/ style="margin: 0 10px 10px 0; display: block; border: 1px solid #ADD2ED;">'
+				}
+			}]
+		};
+
+		var studentDetailContainer = {
+			xtype: 'container',
+			margin: '10 0 0 0',
+			layout: {
+				type: 'hbox',
+				align: 'stretch'
+			},
+			items: [
+				studentDetail,
+				photo
+			]
+		};
+
+		var states = Ext.create('Ext.data.Store', {
+			fields: ['abbr', 'name'],
+			data: [
+				{"abbr":"AL", "name":"Alabama"},
+				{"abbr":"AK", "name":"Alaska"},
+				{"abbr":"AZ", "name":"Arizona"}
+			]
+		});
+
+		var statesCB = {
+			xtype: 'combobox',
+			fieldLabel: 'State:',
+			store: states,
+			queryModel: 'local',
+			displayField: 'name',
+			valueField: 'abbr',
+			editable: false,
+			emptyText: 'Select',
+			width: '100%'
+		};
+
+		var cityCB = {
+			xtype: 'combobox',
+			fieldLabel: 'City:',
+			store: states,
+			queryModel: 'local',
+			displayField: 'name',
+			valueField: 'abbr',
+			editable: false,
+			emptyText: 'Select',
+			width: '100%'
+		};
+
+		var countryCB = {
+			xtype: 'combobox',
+			fieldLabel: 'Country:',
+			store: states,
+			queryModel: 'local',
+			displayField: 'name',
+			valueField: 'abbr',
+			editable: false,
+			emptyText: 'Select',
+			width: '100%'
+		};
+
+		permAddr = {
+			defaultType: 'textfield',
+			title: 'Permanent Address',
+			defaults: {
+				width: '100%'
+			},
+			items: [
+				{
+					fieldLabel: 'Address 1',
+					name: 'perm_address1'
+				}, {
+					fieldLabel: 'Address 2',
+					name: 'perm_address2'
+				}, {
+					fieldLabel: 'Address 3',
+					name: 'perm_address3'
+				}, {
+					fieldLabel: 'Address 4',
+					name: 'perm_address4'
+				}, {
+					xtype: 'container',
+					layout: 'column',
+					items: [
+						{
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							items: [
+								{
+									fieldLabel: 'Postcode',
+									xtype: 'numberfield',
+									minLength: 5, //prevents negative numbers
+									maxLength: 5, //prevents negative numbers
+									enforceMaxLength: true,
+									// Remove spinner buttons, and arrow key and mouse wheel listeners
+									hideTrigger: true,
+									keyNavEnabled: false,
+									mouseWheelEnabled: false,
+									width: 180,
+									name: 'perm_postcode'
+								}
+							]
+						}, {
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							margin: '0 0 0 10px',
+							items: [cityCB]
+						}
+					]
+				}, {
+					xtype: 'container',
+					layout: 'column',
+					items: [
+						{
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							items: [statesCB]
+						}, {
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							margin: '0 0 0 10px',
+							items: [countryCB]
+						}
+					]
+				}
+			]
+		};
+
+		corrAddr = Ext.apply({}, {
+			title: 'Correspondence Address',
+			items: [
+				{
+					xtype: 'checkboxfield',
+					boxLabel  : 'Same as Permanent Address',
+					name: 'same_address',
+					inputValue: '1',
+					id: 'same_address1'
+				}, {
+					fieldLabel: 'Address 1',
+					name: 'corr_address1'
+				}, {
+					fieldLabel: 'Address 2',
+					name: 'corr_address2'
+				}, {
+					fieldLabel: 'Address 3',
+					name: 'corr_address3'
+				}, {
+					fieldLabel: 'Address 4',
+					name: 'corr_address4'
+				}, {
+					xtype: 'container',
+					layout: 'column',
+					items: [
+						{
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							items: [
+								{
+									fieldLabel: 'Postcode',
+									xtype: 'numberfield',
+									minLength: 5, //prevents negative numbers
+									maxLength: 5, //prevents negative numbers
+									enforceMaxLength: true,
+									// Remove spinner buttons, and arrow key and mouse wheel listeners
+									hideTrigger: true,
+									keyNavEnabled: false,
+									mouseWheelEnabled: false,
+									width: 180,
+									name: 'corr_postcode'
+								}
+							]
+						}, {
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							margin: '0 0 0 10px',
+							items: [cityCB]
+						}
+					]
+				}, {
+					xtype: 'container',
+					layout: 'column',
+					items: [
+						{
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							items: [statesCB]
+						}, {
+							xtype: 'fieldcontainer',
+							columnWidth: .5,
+							margin: '0 0 0 10px',
+							items: [countryCB]
+						}
+					]
+				}
+			]
+		}, permAddr);
+
+		var tabs = [
+			permAddr,
+			corrAddr
+		];
+
+		var tabPanel = {
+			xtype: 'tabpanel',
+			activeTab: 0,
+			deferredRender: false,
+			border: false,
+			bodyPadding: 10,
+			// plain: true,
+			items: tabs
+		};
+
+		var panel = Ext.create('Ext.form.Panel', {
+			// renderTo: Ext.getBody(),
+			// width: 700,
+			// autoHeight: true,
+			// title: 'Our complex form',
+			// frame: true,
+			layout: {
+				type: 'vbox',
+				align: 'stretch'
+			},
+			items: [
+				studentDetailContainer,
+				// addressContainer,
+				tabPanel
+			]
+		});
+
+		// Ext.create('Ext.container.Viewport', {
+		// 	renderTo: Ext.getBody(),
+		// 	items: [panel],
+		// 	layout: 'fit'
+		// })
+
+		Ext.create('Ext.container.Viewport', {
+			renderTo: Ext.getBody(),
+			id: 'vp',
+			layout: 'border',
+			items:[
+				{
+				// 	region: 'north',
+
+				// 	html: '<h1 class="x-panel-header">My ExtJS Playground</h1>'
+				// }, {
+					region: 'west',
+					title: 'Navigation',
+					collapsible: true,
+					split: true,
+					width: 250
+				}, {
+					region: 'center',
+					title: 'My Form',
+					items: panel
+				}
+			],
+			listeners: {
+				afterrender: function() {
+					// fade out the body mask
+					// splashscreen.fadeOut({
+					// 	duration: 500,
+					// 	remove: true
+					// });
+
+					// // fade out the message
+					// splashscreen.next().fadeOut({
+					// 	duration: 500,
+					// 	remove: true
+					// });
+
+
+					var hideMask = function () {
+						Ext.get('loading').remove();
+						Ext.fly('loading-mask').animate({
+							opacity:0,
+							remove:true
+						});
+					};
+
+					Ext.defer(hideMask, 250);
+
+				}
+			}
+		})
+
+	}
+});
