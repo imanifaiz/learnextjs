@@ -31,14 +31,16 @@ Ext.define('Learn.view.Login', {
 				{
 					name: 'user',
 					fieldLabel: translations.user,
-					maxLength: 25
+					maxLength: 25,
+					value: 'loiane'
 				}, {
 					inputType: 'password', // #19
 					name: 'password',
 					fieldLabel: translations.password,
 					maxLength: 15,
 					enableKeyEvents: true,
-					id:'password'
+					id:'password',
+					value: '123456'
 				}
 			],
 			dockedItems: [

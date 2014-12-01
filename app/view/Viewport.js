@@ -13,22 +13,15 @@ Ext.define('Learn.view.Viewport', {
 			xtype: 'appheader',
 			region: 'north'
 		}, {
-			// xtype: 'container',
+			xtype: 'mainmenu',
 			region: 'west',
-			title: 'nav',
 			width: 200,
-			collapsible: true,
-			split: true
+			collapsible: false,
+			split: true,
+			resizeable: false
 		}, {
-			xtype: 'tabpanel',
-			region: 'center',
-			items: [
-				{
-					title: 'Dashboard',
-					iconCls: 'house',
-					html: 'This is the dashboard.'
-				}
-			]
+			xtype: 'mainpanel',
+			region: 'center'
 		// }, {
 		// 	xtype: 'component',
 		// 	region: 'south',

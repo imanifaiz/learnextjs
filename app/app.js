@@ -5,15 +5,28 @@ Ext.application({
 
 	enableQuickTips: true,
 
+	models: [
+		'menu.Root',
+		'menu.Item'
+	],
+
+	stores: [
+		'Menu'
+	],
+
 	views: [
 		'Login',
 		'Header',
-		'authentication.CapsLockTooltip'
+		'authentication.CapsLockTooltip',
+		'menu.Accordion',
+		'menu.Item',
+		'MainPanel'
 	],
 
 	controllers: [
 		'Login',
-		'TranslationManager'
+		'TranslationManager',
+		'Menu'
 	],
 
 	init: function() {
